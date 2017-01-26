@@ -2,7 +2,10 @@ package in.skonda.sqliteexamplewithdb;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.view.View;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -50,6 +55,11 @@ String a,b,c,d;
             //Step 4 Add content
 
                 document.add(new Paragraph(strings));
+            Bitmap bmp=BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+            Image image =Image.getInstance("android.resource://in.skonda.sqliteexamplewithdb/mipmap/ic_launcher.png");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                document.add(image);
+            }
 
             //Step 5: Close the document
             document.close();
