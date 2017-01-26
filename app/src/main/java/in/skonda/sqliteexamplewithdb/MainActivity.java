@@ -19,6 +19,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,7 +57,10 @@ String a,b,c,d;
 
                 document.add(new Paragraph(strings));
             Bitmap bmp=BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-            Image image =Image.getInstance("android.resource://in.skonda.sqliteexamplewithdb/mipmap/ic_launcher.png");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, baos);
+            byte[] b = baos.toByteArray();
+            Image image =Image.getInstance(b);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 document.add(image);
             }
