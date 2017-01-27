@@ -27,18 +27,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
-String a,b,c,d;
+    String a, b, c, d;
     MyDb myDb;
-    String strings="";
+    String strings = "";
     File myFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myFile=new File(getFilesDir()+"/test.pdf");
+        myFile = new File(getFilesDir() + "/test.pdf");
     }
-
 
 
     public void pdfCreate(View view) {
@@ -55,12 +55,12 @@ String a,b,c,d;
 
             //Step 4 Add content
 
-                document.add(new Paragraph(strings));
-            Bitmap bmp=BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+            document.add(new Paragraph(strings));
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.PNG, 90, baos);
             byte[] b = baos.toByteArray();
-            Image image =Image.getInstance(b);
+            Image image = Image.getInstance(b);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 document.add(image);
             }
@@ -85,21 +85,21 @@ String a,b,c,d;
     }
 
     public void insertData(View view) {
-        myDb =new MyDb(this);
-        a="a1";
-        b="b2";
-        c="c3";
-        d="d4";
+        myDb = new MyDb(this);
+        a = "a1";
+        b = "b2";
+        c = "c3";
+        d = "d4";
         myDb.open();
-        Long l=myDb.insertData(a,b,c,d);
-        Cursor c=myDb.select();
-        Log.d("code",l+" "+c.getCount());
+        Long l = myDb.insertData(a, b, c, d);
+        Cursor c = myDb.select();
+        Log.d("code", l + " " + c.getCount());
         c.moveToFirst();
-        do{
-            Log.d("code",c.getPosition()+"");
+        do {
+            Log.d("code", c.getPosition() + "");
             //strings[c.getPosition()]=c.getString(0)+","+c.getString(1)+","+c.getString(2)+","+c.getString(3);
-            strings="\n"+strings+c.getString(0)+","+c.getString(1)+","+c.getString(2)+","+c.getString(3);
-        }while (c.moveToNext());
+            strings = "\n" + strings + c.getString(0) + "," + c.getString(1) + "," + c.getString(2) + "," + c.getString(3);
+        } while (c.moveToNext());
     }
 
     @Override
