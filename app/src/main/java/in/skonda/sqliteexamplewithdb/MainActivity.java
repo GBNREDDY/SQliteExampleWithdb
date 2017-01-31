@@ -37,7 +37,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myFile = new File(getFilesDir() + "/test.pdf");
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
+
+        File dir = new File(path);
+        if(!dir.exists())
+            dir.mkdirs();
+
+        myFile = new File(dir, "test.pdf");
     }
 
 
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void pdfOpen(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
