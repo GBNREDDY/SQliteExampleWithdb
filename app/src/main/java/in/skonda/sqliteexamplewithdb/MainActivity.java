@@ -1,5 +1,8 @@
 package in.skonda.sqliteexamplewithdb;
 
+import android.app.ListActivity;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -7,10 +10,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dir";
 
         File dir = new File(path);
-        if(!dir.exists())
+        if (!dir.exists())
             dir.mkdirs();
 
         myFile = new File(dir, "test.pdf");
@@ -84,10 +89,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pdfOpen(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
     }
 
     public void insertData(View view) {
